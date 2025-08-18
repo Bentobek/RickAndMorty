@@ -1,4 +1,4 @@
-package com.example.rickandmortycompose.ui.navgation.bottomNavBar
+package com.example.rickandmorty.ui.navgation.bottomNavBar
 
  import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Face
@@ -9,11 +9,10 @@ import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
- import androidx.navigation.NavBackStackEntry
  import androidx.navigation.NavController
  import androidx.navigation.compose.currentBackStackEntryAsState
- import com.example.rickandmortycompose.ui.navgation.NavScreens
-import kotlin.collections.listOf
+ import com.example.rickandmorty.ui.navgation.NavScreens
+ import kotlin.collections.listOf
 
 @Composable
 fun BottomNavBar(navController: NavController) {

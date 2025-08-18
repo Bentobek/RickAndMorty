@@ -1,4 +1,4 @@
-package com.example.rickandmortycompose.data.dto.Locations
+package com.example.rickandmorty.data.dto.Locations
 
 data class LocationDTO(
     val id: Int? = null,

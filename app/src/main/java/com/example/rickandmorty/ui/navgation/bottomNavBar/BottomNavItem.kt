@@ -1,4 +1,4 @@
-package com.example.rickandmortycompose.ui.navgation.bottomNavBar
+package com.example.rickandmorty.ui.navgation.bottomNavBar
 
 import androidx.compose.ui.graphics.vector.ImageVector
 

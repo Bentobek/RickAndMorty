@@ -1,27 +1,26 @@
-package com.example.rickandmortycompose.ui.screens.locations
+package com.example.rickandmorty.ui.screens.locations
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.rickandmortycompose.data.dto.Locations.LocationDTO
-import com.example.rickandmortycompose.data.repository.LocationRepository
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
+import com.example.rickandmorty.data.dto.Locations.LocationDTO
+import com.example.rickandmorty.data.repository.LocationRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class LocationViewModel(
     private val repository: LocationRepository
 ) : ViewModel() {
 
-    private val _locations = MutableStateFlow<List<LocationDTO>>(emptyList())
-    val locations: StateFlow<List<LocationDTO>> = _locations
+    private val _locations = MutableStateFlow<PagingData<LocationDTO>>(PagingData.empty())
+    val locations: StateFlow<PagingData<LocationDTO>> = _locations
 
-    fun fetchLocations() {
-        viewModelScope.launch(Dispatchers.IO) {
-            repository.fetchLocations().collect {
-                _locations.value = it
-            }
+    suspend fun fetchLocations() {
+        repository.fetchLocations().flow.cachedIn(viewModelScope).collect{
+            _locations.value = it
         }
     }
 }

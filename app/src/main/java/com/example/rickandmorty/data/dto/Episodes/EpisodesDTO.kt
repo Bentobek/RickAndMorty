@@ -1,4 +1,4 @@
-package com.example.rickandmortycompose.data.dto.Episodes
+package com.example.rickandmorty.data.dto.Episodes
 
 data class EpisodesDTO(
     val id: Int? = null,

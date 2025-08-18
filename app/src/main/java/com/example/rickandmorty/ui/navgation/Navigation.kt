@@ -1,4 +1,4 @@
-package com.example.rickandmortycompose.ui.navgation
+package com.example.rickandmorty.ui.navgation
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -10,14 +10,14 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.example.rickandmortycompose.ui.navgation.bottomNavBar.BottomNavBar
-import com.example.rickandmortycompose.ui.screens.characters.detailScreen.CharacterDetailScreen
-import com.example.rickandmortycompose.ui.screens.characters.CharacterScreen
-import com.example.rickandmortycompose.ui.screens.episods.EpisodsScreen
-import com.example.rickandmortycompose.ui.screens.episods.detailScreen.EpisodeDetailScreen
-import com.example.rickandmortycompose.ui.screens.favorite.FavoritesScreen
-import com.example.rickandmortycompose.ui.screens.locations.LocationsScreen
-import com.example.rickandmortycompose.ui.screens.locations.detailScreen.LocationDetailScreen
+import com.example.rickandmorty.ui.navgation.bottomNavBar.BottomNavBar
+import com.example.rickandmorty.ui.screens.characters.CharacterScreen
+import com.example.rickandmorty.ui.screens.characters.detailScreen.CharacterDetailScreen
+import com.example.rickandmorty.ui.screens.episods.EpisodsScreen
+import com.example.rickandmorty.ui.screens.episods.detailScreen.EpisodeDetailScreen
+import com.example.rickandmorty.ui.screens.favorite.FavoritesScreen
+import com.example.rickandmorty.ui.screens.locations.LocationsScreen
+import com.example.rickandmorty.ui.screens.locations.detailScreen.LocationDetailScreen
 
 @Composable
 fun Navigation() {

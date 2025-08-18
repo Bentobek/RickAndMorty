@@ -1,14 +1,13 @@
-package com.example.rickandmortycompose.ui.module
+package com.example.rickandmorty.ui.module
 
-import com.example.rickandmortycompose.ui.screens.characters.detailScreen.CharacterDetailViewModel
-import com.example.rickandmortycompose.ui.screens.characters.CharacterViewModel
-import com.example.rickandmortycompose.ui.screens.episods.EpisodeViewModel
-import com.example.rickandmortycompose.ui.screens.episods.detailScreen.EpisodeDetailingViewModel
-import com.example.rickandmortycompose.ui.screens.favorite.FavoritesViewModel
-import com.example.rickandmortycompose.ui.screens.locations.LocationViewModel
-import com.example.rickandmortycompose.ui.screens.locations.detailScreen.LocationDetailViewModel
+import com.example.rickandmorty.ui.screens.characters.CharacterViewModel
+import com.example.rickandmorty.ui.screens.characters.detailScreen.CharacterDetailViewModel
+import com.example.rickandmorty.ui.screens.episods.EpisodeViewModel
+import com.example.rickandmorty.ui.screens.episods.detailScreen.EpisodeDetailingViewModel
+import com.example.rickandmorty.ui.screens.favorite.FavoritesViewModel
+import com.example.rickandmorty.ui.screens.locations.LocationViewModel
+import com.example.rickandmorty.ui.screens.locations.detailScreen.LocationDetailViewModel
 import org.koin.core.module.dsl.viewModel
-import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.module
 
 val uiModel = module {

@@ -1,9 +1,9 @@
-package com.example.rickandmortycompose.ui.screens.characters.detailScreen
+package com.example.rickandmorty.ui.screens.characters.detailScreen
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.rickandmortycompose.data.dto.Characters.CharacterDTO
-import com.example.rickandmortycompose.data.repository.CharactersRepository
+import com.example.rickandmorty.data.dto.Characters.CharacterDTO
+import com.example.rickandmorty.data.repository.CharactersRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

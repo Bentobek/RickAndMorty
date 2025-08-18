@@ -1,14 +1,18 @@
-package com.example.rickandmortycompose.ui.screens.characters
+package com.example.rickandmorty.ui.screens.characters
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.rickandmortycompose.data.dto.Characters.CharacterDTO
-import com.example.rickandmortycompose.data.local.FavoriteCharacterEntity
-import com.example.rickandmortycompose.data.repository.CharactersRepository
-import com.example.rickandmortycompose.data.repository.FavoritesRepository
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
+import com.example.rickandmorty.data.dto.Characters.CharacterDTO
+import com.example.rickandmorty.data.local.FavoriteCharacterEntity
+import com.example.rickandmorty.data.repository.CharactersRepository
+import com.example.rickandmorty.data.repository.FavoritesRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 class CharacterViewModel(
@@ -16,16 +20,17 @@ class CharacterViewModel(
     private val favoritesRepository: FavoritesRepository
 ) : ViewModel() {
 
-    private val _characters = MutableStateFlow<List<CharacterDTO>>(emptyList())
-    val characters: StateFlow<List<CharacterDTO>> = _characters
+    private val _characters = MutableStateFlow<PagingData<CharacterDTO>>(PagingData.empty())
+    val charactersStateFlow: StateFlow<PagingData<CharacterDTO>> = _characters.asStateFlow()
 
-
- fun fetchCharacters() {
-        viewModelScope.launch(Dispatchers.IO) {
-            repository.getCharactersWithFavorites().collect { list ->
-                _characters.value = list
+    suspend fun fetchCharacters() {
+        repository
+            .fetchCharacters()
+            .flow
+            .cachedIn(viewModelScope)
+            .collectLatest {
+                _characters.value = it
             }
-        }
     }
 
     fun toggleFavorite(character: CharacterDTO) {

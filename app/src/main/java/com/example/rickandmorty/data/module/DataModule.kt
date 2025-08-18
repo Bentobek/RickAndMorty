@@ -1,22 +1,19 @@
-package com.example.rickandmortycompose.data.module
+package com.example.rickandmorty.data.module
 
 
-import android.icu.util.TimeUnit
 import androidx.room.Room
 import com.example.rickandmorty.BuildConfig
-import com.example.rickandmortycompose.data.api.CharactersApiService
-import com.example.rickandmortycompose.data.api.EpisodeApiService
-import com.example.rickandmortycompose.data.api.LocationApiService
-import com.example.rickandmortycompose.data.local.FavoritesDao
-import com.example.rickandmortycompose.data.local.FavoritesDatabase
-import com.example.rickandmortycompose.data.repository.CharactersRepository
-import com.example.rickandmortycompose.data.repository.EpisodeRepository
-import com.example.rickandmortycompose.data.repository.FavoritesRepository
-import com.example.rickandmortycompose.data.repository.LocationRepository
-import com.google.gson.Gson
+import com.example.rickandmorty.data.api.CharactersApiService
+import com.example.rickandmorty.data.api.EpisodeApiService
+import com.example.rickandmorty.data.api.LocationApiService
+import com.example.rickandmorty.data.local.FavoritesDao
+import com.example.rickandmorty.data.local.FavoritesDatabase
+import com.example.rickandmorty.data.repository.CharactersRepository
+import com.example.rickandmorty.data.repository.EpisodeRepository
+import com.example.rickandmorty.data.repository.FavoritesRepository
+import com.example.rickandmorty.data.repository.LocationRepository
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
-import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

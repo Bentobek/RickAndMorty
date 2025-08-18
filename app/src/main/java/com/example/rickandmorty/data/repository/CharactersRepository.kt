@@ -1,17 +1,34 @@
-package com.example.rickandmortycompose.data.repository
+package com.example.rickandmorty.data.repository
 
-import com.example.rickandmortycompose.data.api.CharactersApiService
-import com.example.rickandmortycompose.data.dto.Characters.CharacterDTO
-import com.example.rickandmortycompose.data.local.FavoriteCharacterEntity
-import com.example.rickandmortycompose.data.local.FavoritesDao
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import com.example.rickandmorty.data.api.CharactersApiService
+import com.example.rickandmorty.data.dto.Characters.CharacterDTO
+import com.example.rickandmorty.data.local.FavoriteCharacterEntity
+import com.example.rickandmorty.data.local.FavoritesDao
+import com.example.rickandmorty.data.paging.CharactersPagingSource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
+import kotlin.io.path.Path
 
 class CharactersRepository(
     private val apiService: CharactersApiService,
     private val favoritesDao: FavoritesDao
 ) {
+
+    fun fetchCharacters(): Pager<Int,CharacterDTO> {
+        return Pager(
+            config = PagingConfig(
+                pageSize = 20,
+                initialLoadSize = 20,
+                prefetchDistance = 5,
+            ),
+            pagingSourceFactory = { CharactersPagingSource(apiService) }
+        )
+    }
+
 
     suspend fun fetchCharacterById(id: Int): CharacterDTO? {
         val response = apiService.fetchCharacterById(id)
@@ -27,19 +44,6 @@ class CharactersRepository(
 
         return null
     }
-
-    fun getCharactersWithFavorites(): Flow<List<CharacterDTO>> = favoritesDao.getAllFavorites()
-        .map { favoritesList ->
-            val favoriteIds = favoritesList.map { it.id }.toSet()
-            val response = apiService.fetchCharacters()
-            if (response.isSuccessful) {
-                response.body()?.results?.map { dto ->
-                    dto.copy(isFavorite = favoriteIds.contains(dto.id))
-                } ?: emptyList()
-            } else {
-                emptyList()
-            }
-        }
 
     suspend fun toggleFavorite(character: CharacterDTO) {
         val id = character.id ?: return

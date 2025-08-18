@@ -1,9 +1,9 @@
-package com.example.rickandmortycompose.ui.screens.locations.detailScreen
+package com.example.rickandmorty.ui.screens.locations.detailScreen
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.rickandmortycompose.data.dto.Locations.LocationDTO
-import com.example.rickandmortycompose.data.repository.LocationRepository
+import com.example.rickandmorty.data.dto.Locations.LocationDTO
+import com.example.rickandmorty.data.repository.LocationRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

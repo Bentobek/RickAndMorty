@@ -1,4 +1,4 @@
-package com.example.rickandmortycompose.data.local
+package com.example.rickandmorty.data.local
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

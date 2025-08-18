@@ -48,7 +48,11 @@ android {
 }
 
 dependencies {
+    //Navigation
     implementation(libs.androidx.navigation.compose)
+
+    //paging 3
+    implementation (libs.androidx.paging.compose)
 
     //Koin
     implementation(libs.koin.core)

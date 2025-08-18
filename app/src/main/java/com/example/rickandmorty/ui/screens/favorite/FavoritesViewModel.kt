@@ -1,12 +1,10 @@
-package com.example.rickandmortycompose.ui.screens.favorite
+package com.example.rickandmorty.ui.screens.favorite
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.rickandmortycompose.data.local.FavoriteCharacterEntity
-import com.example.rickandmortycompose.data.repository.FavoritesRepository
+import com.example.rickandmorty.data.local.FavoriteCharacterEntity
+import com.example.rickandmorty.data.repository.FavoritesRepository
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn

@@ -1,6 +1,5 @@
-package com.example.rickandmortycompose.ui.screens.characters
+package com.example.rickandmorty.ui.screens.characters
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -12,11 +11,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
@@ -29,15 +25,16 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import androidx.paging.compose.collectAsLazyPagingItems
 import coil.compose.AsyncImage
-import com.example.rickandmortycompose.data.dto.Characters.CharacterDTO
+import com.example.rickandmorty.data.dto.Characters.CharacterDTO
+import com.example.rickandmorty.ui.components.LoadStateHandler
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -45,13 +42,11 @@ fun CharacterScreen(
     navController: NavController,
     viewModel: CharacterViewModel = koinViewModel()
 ) {
-    val charactersState = viewModel.characters.collectAsState()
-    val characters = charactersState.value
+    val characters = viewModel.charactersStateFlow.collectAsLazyPagingItems()
 
     LaunchedEffect(Unit) {
         viewModel.fetchCharacters()
     }
-
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -62,11 +57,12 @@ fun CharacterScreen(
             modifier = Modifier.fillMaxSize(),
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            items(characters) { character ->
+            items(characters.itemCount) {
+                val character = characters[it]
                 CharacterItem(
                     character = character,
                     onClick = {
-                        character.id?.let { id ->
+                        character?.id?.let { id ->
                             navController.navigate("character_detail/$id")
                         }
                     },
@@ -74,13 +70,17 @@ fun CharacterScreen(
                         viewModel.addToFavorites(selectedCharacter)
                     }
                 )
+                LoadStateHandler(
+                    loadState = characters.loadState.refresh,
+                    onRetry = { characters.retry() }
+                )
             }
         }
     }
 }
 @Composable
 fun CharacterItem(
-    character: CharacterDTO,
+    character: CharacterDTO?,
     onClick: () -> Unit,
     onFavoriteClick: (CharacterDTO) -> Unit
     ) {
@@ -97,7 +97,7 @@ fun CharacterItem(
                 .padding(16.dp)
         ) {
             AsyncImage(
-                model = character.image,
+                model = character?.image,
                 contentDescription = null,
                 modifier = Modifier
                     .size(72.dp)
@@ -106,19 +106,21 @@ fun CharacterItem(
             )
             Spacer(modifier = Modifier.width(16.dp))
             Column {
-                Text(text = character.name ?: "Unknown", style = MaterialTheme.typography.titleMedium)
-                Text(text = "Status: ${character.status}", style = MaterialTheme.typography.bodyMedium)
-                Text(text = "Species: ${character.species}", style = MaterialTheme.typography.bodySmall)
+                Text(text = character?.name ?: "Unknown", style = MaterialTheme.typography.titleMedium)
+                Text(text = "Status: ${character?.status}", style = MaterialTheme.typography.bodyMedium)
+                Text(text = "Species: ${character?.species}", style = MaterialTheme.typography.bodySmall)
             }
             IconButton(
                 onClick = {
-                    onFavoriteClick(character)
+                    if (character != null) {
+                        onFavoriteClick(character)
+                    }
                 }
             ) {
                 Icon(
-                    imageVector = if (character.isFavorite == true) Icons.Default.Favorite else Icons.Default.FavoriteBorder,
+                    imageVector = if (character?.isFavorite == true) Icons.Default.Favorite else Icons.Default.FavoriteBorder,
                     contentDescription = "Toggle Favorite",
-                    tint = if (character.isFavorite == true) Color.Red else Color.Gray
+                    tint = if (character?.isFavorite == true) Color.Red else Color.Gray
                 )
             }
         }

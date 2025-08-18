@@ -1,4 +1,4 @@
-package com.example.rickandmortycompose.data.dto.Characters
+package com.example.rickandmorty.data.dto.Characters
 
 
 data class CharacterDTO(

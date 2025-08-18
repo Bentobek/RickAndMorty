@@ -1,4 +1,4 @@
-package com.example.rickandmortycompose.ui.navgation
+package com.example.rickandmorty.ui.navgation
 
 sealed class NavScreens(val route: String) {
     object Characters : NavScreens("character_screen")

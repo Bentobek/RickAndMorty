@@ -1,6 +1,7 @@
-package com.example.rickandmortycompose.data.dto.Episodes
+package com.example.rickandmorty.data.dto.Episodes
 
 data class EpisodeResponse(
-    val results: List<EpisodesDTO>
+    val results: List<EpisodesDTO>,
+    val info: EpisodesPageInfo
 
 )

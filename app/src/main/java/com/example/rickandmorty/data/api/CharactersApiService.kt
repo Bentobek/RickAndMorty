@@ -1,16 +1,19 @@
-package com.example.rickandmortycompose.data.api
+package com.example.rickandmorty.data.api
 
 
-import com.example.rickandmortycompose.data.dto.Characters.CharacterDTO
-import com.example.rickandmortycompose.data.dto.Characters.CharactersResponse
+import com.example.rickandmorty.data.dto.Characters.CharacterDTO
+import com.example.rickandmorty.data.dto.Characters.CharactersResponse
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface CharactersApiService {
 
     @GET("character")
-    suspend fun fetchCharacters(): Response<CharactersResponse>
+    suspend fun fetchCharacters(
+        @Query("page") pages: Int
+    ): Response<CharactersResponse>
 
 
     @GET("character/{id}")

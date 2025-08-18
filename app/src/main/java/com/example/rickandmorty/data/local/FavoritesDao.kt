@@ -1,4 +1,4 @@
-package com.example.rickandmortycompose.data.local
+package com.example.rickandmorty.data.local
 
 import androidx.room.Dao
 import androidx.room.Delete

@@ -1,7 +1,7 @@
-package com.example.rickandmortycompose.data.repository
+package com.example.rickandmorty.data.repository
 
-import com.example.rickandmortycompose.data.local.FavoriteCharacterEntity
-import com.example.rickandmortycompose.data.local.FavoritesDao
+import com.example.rickandmorty.data.local.FavoriteCharacterEntity
+import com.example.rickandmorty.data.local.FavoritesDao
 import kotlinx.coroutines.flow.Flow
 
 class FavoritesRepository(

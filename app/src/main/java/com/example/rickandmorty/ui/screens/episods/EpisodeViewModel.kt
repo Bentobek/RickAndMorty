@@ -1,9 +1,11 @@
-package com.example.rickandmortycompose.ui.screens.episods
+package com.example.rickandmorty.ui.screens.episods
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.rickandmortycompose.data.dto.Episodes.EpisodesDTO
-import com.example.rickandmortycompose.data.repository.EpisodeRepository
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
+import com.example.rickandmorty.data.dto.Episodes.EpisodesDTO
+import com.example.rickandmorty.data.repository.EpisodeRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -13,14 +15,13 @@ class EpisodeViewModel(
     private val repository: EpisodeRepository
 ) : ViewModel() {
 
-    private val _episodes = MutableStateFlow<List< EpisodesDTO>>(emptyList())
-    val episodes: StateFlow<List<EpisodesDTO>> = _episodes
+    private val _episodes = MutableStateFlow<PagingData< EpisodesDTO>>(PagingData.empty())
+    val episodes: MutableStateFlow<PagingData<EpisodesDTO>> = _episodes
 
-    fun fetchEpisodes() {
-        viewModelScope.launch(Dispatchers.IO) {
-            repository.fetchEpisodes().collect { episodeList ->
-                _episodes.value = episodeList
-            }
+    suspend fun fetchEpisodes() {
+        repository.fetchEpisodes().flow.cachedIn(viewModelScope).collect {
+            _episodes.value = it
+
         }
     }
 }

@@ -1,4 +1,4 @@
-package com.example.rickandmortycompose.ui.screens.favorite
+package com.example.rickandmorty.ui.screens.favorite
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -32,11 +32,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
-import com.example.rickandmortycompose.data.local.FavoriteCharacterEntity
+import com.example.rickandmorty.data.local.FavoriteCharacterEntity
 import org.koin.androidx.compose.koinViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -65,7 +64,7 @@ fun FavoritesScreen(
                     .padding(paddingValues),
                 contentAlignment = Alignment.Center
             ) {
-                Text("Нет избранных персонажей 😢")
+                Text("Нет избранных персонажей ")
             }
         } else {
             LazyColumn(
