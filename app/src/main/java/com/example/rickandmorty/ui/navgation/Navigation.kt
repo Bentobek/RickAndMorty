@@ -38,18 +38,24 @@ fun Navigation() {
         ) {
             composable(NavScreens.Characters.route) {
                 CharacterScreen(
-                    navController = navController
+                    navController = navController,
+                    isRefreshing = false,
+                    onRefresh = {  }
                 )
             }
             composable(NavScreens.Locations.route) {
                 LocationsScreen(
-                    navController = navController
+                    navController = navController,
+                    isRefreshing = false,
+                    onRefresh = {  }
                 )
 
             }
             composable(NavScreens.Episodes.route) {
                 EpisodsScreen(
                     navController = navController,
+                    isRefreshing = false,
+                    onRefresh = {  }
                 )
             }
             composable(NavScreens.Favorites.route) {
@@ -62,7 +68,10 @@ fun Navigation() {
                 arguments = listOf(navArgument("characterId") { type = NavType.IntType })
             ) { backStackEntry ->
                 val characterId = backStackEntry.arguments?.getInt("characterId") ?: return@composable
-                CharacterDetailScreen(characterId = characterId)
+                CharacterDetailScreen(
+                    characterId = characterId,
+                    navController = navController,
+                )
                 }
 //            composable(
 //                route = "location_detail/{locationId}",
@@ -79,6 +88,7 @@ fun Navigation() {
                 locationId?.let {
                     LocationDetailScreen(
                         locationId = it,
+                        navController =navController ,
                     )
                 }
             }
@@ -88,6 +98,7 @@ fun Navigation() {
                 episodeId?.let {
                     EpisodeDetailScreen(
                         episodeId = it,
+                        navController = navController
                     )
                 }
             }

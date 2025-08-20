@@ -32,7 +32,6 @@ class CharacterViewModel(
                 _characters.value = it
             }
     }
-
     fun toggleFavorite(character: CharacterDTO) {
         viewModelScope.launch(Dispatchers.IO) {
             repository.toggleFavorite(character)

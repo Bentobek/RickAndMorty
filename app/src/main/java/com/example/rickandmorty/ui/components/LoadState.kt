@@ -26,7 +26,7 @@ fun LoadStateHandler(
 ) {
     when (loadState) {
         is LoadState.Loading -> {
-            // Показываем индикатор загрузки
+
             Box(
                 modifier = Modifier
                     .fillMaxWidth()

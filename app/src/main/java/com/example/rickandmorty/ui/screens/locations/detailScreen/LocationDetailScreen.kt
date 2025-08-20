@@ -13,6 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.rickandmorty.ui.components.DetailTopAppBar
 import com.example.rickandmorty.ui.screens.locations.detailScreen.LocationDetailViewModel
 import org.koin.androidx.compose.koinViewModel
 
@@ -20,6 +21,7 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun LocationDetailScreen(
     locationId: Int,
+    navController: NavController,
     viewModel: LocationDetailViewModel = koinViewModel()
 ) {
     val location = viewModel.location.collectAsState().value
@@ -27,7 +29,14 @@ fun LocationDetailScreen(
     LaunchedEffect(locationId) {
         viewModel.fetchLocationById(locationId)
     }
-
+    Column(
+        modifier = Modifier.
+        fillMaxSize()
+    ) {
+        DetailTopAppBar(
+            title = location?.name ?: "Location Detail",
+            onBackClick = { navController.popBackStack() }
+        )
     if (location == null) {
         Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
             CircularProgressIndicator()
@@ -41,6 +50,7 @@ fun LocationDetailScreen(
             Text(text = "Name: ${location.name}")
             Text(text = "Type: ${location.type}")
             Text(text = "Dimension: ${location.dimension}")
+            }
         }
     }
 }
